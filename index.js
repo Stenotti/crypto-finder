@@ -4,6 +4,7 @@ const ath1 = require("./data/ath1.json");
 const unlistedBinance = require("./data/unlisted-binance.json");
 const unlistedCoinbase = require("./data/unlisted-coinbase.json");
 const app = express();
+const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const ejs = require('ejs')
