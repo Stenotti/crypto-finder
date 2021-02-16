@@ -84,11 +84,6 @@ app.get("/unlisted-coins", async (req, res) => {
   }, binanceCoins);
 
   const result = coins
-    // .filter(onlyUnique)
-    // .filter(
-    //   (c) =>
-    //     c.market_data.market_cap_rank && c.market_data.market_cap_rank < 2000
-    // )
     .filter((c) => !toExclude.includes(c.symbol))
     .map((c) => {
       const toATH = c.ath - c.current_price;
@@ -122,20 +117,5 @@ app.get("/unlisted-coins", async (req, res) => {
     });
   res.json(result);
 });
-
-// app.get("/unlisted-coinbase-data", async (req, res) => {
-//   const result = unlistedCoinbase
-//     .filter(onlyUnique)
-//     .filter((c) => c.market_cap_rank && c.market_cap_rank < 250)
-//     .map((c) => ({
-//       ath_change_percentage: c.ath_change_percentage,
-//       id: c.symbol,
-//       name: c.name,
-//     }))
-//     .sort((a, b) =>
-//       a.ath_change_percentage > b.ath_change_percentage ? 1 : -1
-//     );
-//   res.json(result);
-// });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
