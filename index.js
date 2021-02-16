@@ -4,11 +4,12 @@ const ath1 = require("./data/ath1.json");
 const unlistedBinance = require("./data/unlisted-binance.json");
 const unlistedCoinbase = require("./data/unlisted-coinbase.json");
 const app = express();
+const PORT = process.env.PORT || 5000
 
 const ejs = require('ejs')
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.use(express.static('public'));
-
+app.use(express.static(path.join(__dirname, 'public')))
 const {
   ping,
   coinsNotToAthYet,
@@ -153,6 +154,4 @@ app.get("/unlisted-coins", async (req, res) => {
 //   res.json(result);
 // });
 
-app.listen(3000, function () {
-  console.log("Crypto finder running on port 3000!");
-});
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
