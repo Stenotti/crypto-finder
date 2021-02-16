@@ -1,267 +1,308 @@
-<html lang="en"></html>
+<html lang="en">
+
+</html>
+
 <head>
   <meta charset="UTF-8" />
   <title>Unlisted Crypto Finder</title>
 </head>
+
 <body class="">
 
-<!-- CSS (load bootstrap from a CDN) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" href="http://localhost:8000/css/index.css" />
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/themes/spiritedaway.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.colVis.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="http://localhost:8000/css/index.css" />
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.colVis.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 
-<style>
-    body{
-        padding: 10px;
+  <style>
+    body {
+      padding: 10px;
     }
-.coin-image{
-  margin-right: 15px;
-}
 
-.dataTables_filter{
-  margin-bottom: 20px;
-}
-.dataTables_filter input{
-  max-height: 20px;
-  font-size: 10px;
-}
+    .coin-image {
+      margin-right: 15px;
+    }
 
-#example_wrapper .dt-buttons .dt-button{ 
-max-height: 25px;
-font-weight: bold;
-font-variant: tabular-nums;
-list-style: none;
-font-feature-settings: 'tnum';
-touch-action: manipulation;
-box-sizing: border-box;
-position: relative;
-display: inline-block;
-height: 36px;
-margin: 0;
-padding: 0 10px;
-border: 1px solid #d9d9d9;
-border-top-width: 1.02px;
-cursor: pointer;
-transition: color 0.3s, background 0.3s, border-color 0.3s, box-shadow 0.3s;
-border-left: 1px solid #d9d9d9;
-z-index: 1;
-color: #038fde;
-background: #fff;
-margin-bottom: 6px;
-border-color: #038fde;
-border-right-color: #28aaeb;
-font-size: 12px;
-}
+    .dataTables_filter {
+      margin-bottom: 20px;
+    }
 
-#example_wrapper .dt-buttons{
-  display: flex;
-}
-#example_wrapper .dt-buttons .dt-button.buttons-pdf{
-  border-radius: 6px 0 0 6px;
-} 
-#example_wrapper .dt-buttons .dt-button.buttons-excel{
-  border-radius: 0px 6px 6px 0;
-  border-left: none;
-} 
+    .dataTables_filter input {
+      max-height: 20px;
+      font-size: 10px;
+    }
 
-.CryptoDatatable .dataTable{
-  margin-top: 50px;
-}
+    #coins_table_wrapper .dt-buttons .dt-button {
+      max-height: 25px;
+      font-weight: bold;
+      font-variant: tabular-nums;
+      list-style: none;
+      font-feature-settings: 'tnum';
+      touch-action: manipulation;
+      box-sizing: border-box;
+      position: relative;
+      display: inline-block;
+      height: 36px;
+      margin: 0;
+      padding: 0 10px;
+      border: 1px solid #d9d9d9;
+      border-top-width: 1.02px;
+      cursor: pointer;
+      transition: color 0.3s, background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      border-left: 1px solid #d9d9d9;
+      z-index: 1;
+      color: #038fde;
+      background: #fff;
+      margin-bottom: 6px;
+      border-color: #038fde;
+      border-right-color: #28aaeb;
+      font-size: 12px;
+    }
 
-.CryptoDatatable .datatable{
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
---antd-wave-shadow-color: #038fde;
---scroll-bar: 0;
-font-family: 'NoirPro', sans-serif;
-font-weight: 400;
-box-sizing: border-box;
-padding: 0;
-color: #545454;
-font-variant: tabular-nums;
-line-height: 1.3;
-list-style: none;
-font-feature-settings: 'tnum';
-position: relative;
-z-index: 0;
-font-size: 14px;
-background: #fff;
-border-radius: 6px;
-min-height: 0.01%;
-overflow-x: auto;
-border: 1px solid #e8e8e8;
-}
+    #coins_table_wrapper .dt-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
+    #coins_table_wrapper .dt-buttons .dt-button.buttons-pdf {
+      border-radius: 6px 0 0 6px;
+    }
 
-table.dataTable.no-footer {
-  border-color: #e8e8e8;
-}
+    #coins_table_wrapper .dt-buttons .dt-button.buttons-excel {
+      border-radius: 0px 6px 6px 0;
+      border-left: none;
+    }
 
-table.dataTable thead {
-  background: #fafafa;
-  font-size: 10px;
-}
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      padding: 0;
+    }
 
-table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
-  background-size: 10px;
-}
+    .CryptoDatatable .dataTable {
+      margin-top: 50px;
+    }
+
+    .CryptoDatatable .datatable {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      --antd-wave-shadow-color: #038fde;
+      --scroll-bar: 0;
+      font-family: 'NoirPro', sans-serif;
+      font-weight: 400;
+      box-sizing: border-box;
+      padding: 0;
+      color: #545454;
+      font-variant: tabular-nums;
+      line-height: 1.3;
+      list-style: none;
+      font-feature-settings: 'tnum';
+      position: relative;
+      z-index: 0;
+      font-size: 14px;
+      background: #fff;
+      border-radius: 6px;
+      min-height: 0.01%;
+      overflow-x: auto;
+      border: 1px solid #e8e8e8;
+    }
 
 
-table.dataTable thead th {
-  border-bottom: 1px solid #e8e8e8;
-}
+    table.dataTable.no-footer {
+      border-color: #e8e8e8;
+    }
+
+    table.dataTable thead {
+      background: #fafafa;
+      font-size: 10px;
+    }
+
+    table.dataTable thead .sorting,
+    table.dataTable thead .sorting_asc,
+    table.dataTable thead .sorting_desc {
+      background-size: 10px;
+    }
 
 
-table.dataTable tbody td {
-  padding: 16px;
-}
-
-table.dataTable.display tbody tr>.sorting_1, 
-table.dataTable.display tbody tr>.sorting_2 {
-background-color: unset;
-}
-
-table.dataTable tbody tr td span.name {
-  font-weight: bold;
-}
+    table.dataTable thead th {
+      border-bottom: 1px solid #e8e8e8;
+    }
 
 
+    table.dataTable tbody td {
+      padding: 16px;
 
-</style>
-<div class="text-muted">
+    }
+
+    table.dataTable.display tbody tr>.sorting_1,
+    table.dataTable.display tbody tr>.sorting_2 {
+      background-color: unset;
+    }
+
+    table.dataTable tbody tr td span.name {
+      font-weight: bold;
+    }
+  </style>
+
+  <div class="text-muted">
     <div class="CryptoDatatable">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>M Cap</th>
-                    <th>ATH</th>
-                    <th>To ATH</th>
-                    <th>To ATH %</th>
-                    <th>24h %</th>
-                    <th>7d %</th>
-                    <th>Not listed in</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-        </table>
+      <div id="table_info"></div>
+      <table id="coins_table" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>ATH</th>
+            <th>To ATH</th>
+            <th>To ATH %</th>
+            <th>24h %</th>
+            <th>7d %</th>
+            <th>Not listed in</th>
+            <th>Where to buy?</th>
+          </tr>
+        </thead>
+      </table>
     </div>
-</div>
-<script>
-    jQuery.fn.dataTableExt.oSort['string-case-asc']  = function(x,y) {
-	return ((x < y) ? -1 : ((x > y) ?  1 : 0));
-};
+  </div>
+  <script>
+    jQuery.fn.dataTableExt.oSort['string-case-asc'] = function (x, y) {
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    };
 
-jQuery.fn.dataTableExt.oSort['string-case-desc'] = function(x,y) {
-	return ((x < y) ?  1 : ((x > y) ? -1 : 0));
-};
-    function renderTable(){
-        $('#example').DataTable( {
-            dom: 'Bfrtip',
-            stripeClasses: [],
-            language: { search: '', searchPlaceholder: "Search..." },
-            buttons: [
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                    },
-                },
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                    },
-                }
-            ],
-            paging:   false,
-            info:   false,
-            order: [[ 3, "desc" ]],
-            ajax: {
-                url: '/unlisted-coins',
-                dataSrc: function(json){
-                    return json
-                }
+    jQuery.fn.dataTableExt.oSort['string-case-desc'] = function (x, y) {
+      return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+    };
+    function renderTable() {
+      var table = $('#coins_table').DataTable({
+        dom: 'Bfrtip',
+        stripeClasses: [],
+        language: { search: '', searchPlaceholder: "Search..." },
+        buttons: [
+          'pdf',
+          'excel',
+          'pageLength'
+        ],
+        info: true,
+        paging: true,
+        lengthChange: true,
+        pagingType: "full_numbers",
+        lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+        order: [[1, "desc"]],
+        ajax: {
+          url: '/unlisted-coins',
+          dataSrc: function (json) {
+            return json
+          }
+        },
+        columns: [
+          { data: 'image' },
+          { data: 'market_cap_rank' },
+          { data: 'name' },
+          { data: 'current_price' },
+          { data: 'ath' },
+          { data: 'toATH' },
+          { data: 'toATHPercentage' },
+          { data: 'price_change_percentage_24h' },
+          { data: 'price_change_percentage_7d_in_currency' },
+          { data: 'exchange' },
+          { data: 'action' },
+        ],
+        columnDefs: [
+          {
+            targets: 0,
+            data: "image",
+            render: function (image, type, full) {
+              return '<img class="coin-image" width="20" src="' + image + '"/>';
+            }
+          },
+          {
+            targets: 2,
+            render: function (text, type, full) {
+              return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/>${text} (${full.symbol.toUpperCase()})</a>`;
+            }
+          },
+          {
+            targets: [3, 4, 5],
+            render: function (text, type, full) {
+              return text.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })
+            }
+          },
+          {
+            targets: [6],
+            render: function (text, type, full) {
+              return `${text}%`
+            }
+          },
+          {
+            targets: [7, 8],
+            createdCell: function (td, cellData, rowData, row, col) {
+              if (cellData > 0) {
+                $(td).css('color', '#16c784')
+              }
+              else {
+                $(td).css('color', '#ea3943')
+              }
             },
-            columns: [       
-                { data: 'image' },
-                { data: 'name' },
-                { data: 'current_price' },
-                { data: 'market_cap_rank' },
-                { data: 'ath' },
-                { data: 'toATH' },
-                { data: 'toATHPercentage' },
-                { data: 'price_change_percentage_24h' },
-                { data: 'price_change_percentage_7d_in_currency' },
-                { data: 'exchange' },
-                { data: 'action' },
-                ],
-            columnDefs : [
-            {
-                targets : 0 ,
-                data: "img",
-                render : function ( image, type, full) {
-                    return '<img class="coin-image" width="20" src="'+image+'"/>';
-                }
-            },
-            {
-                targets : 1 ,
-                data: "img",
-                render : function ( text, type, full) {
-                    return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/>${text} (${full.symbol.toUpperCase()})</a>`;
-                }
-            },
-            {
-                targets : 6 ,
-                data: "img",
-                render : function ( text, type, full) {
-                    return `${text}%`
-                }
-            },
-            {
-                targets : 7 ,
-                data: "img",
-                render : function ( text, type, full) {
-                    return `${text}%`
-                }
-            },
-            ]
-        } );
+            render: function (text, type, full) {
+              return `${text}%`
+            }
+          },
+          {
+            targets: 10,
+            render: function (text, type, full) {
+              return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/markets>${full.symbol.toUpperCase()} Markets</a>`;
+            }
+          },
+        ]
+      });
     }
+
     $(document).ready(function () {
-        renderTable()
+      renderTable()
     })
 
 
 
 
 
-</script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSC4VT58PX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSC4VT58PX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-GSC4VT58PX');
-</script>
+    gtag('config', 'G-GSC4VT58PX');
+  </script>
 </body>
+
 </html>
