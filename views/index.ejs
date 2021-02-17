@@ -56,6 +56,11 @@
       font-size: 10px;
     }
 
+    #athButtonSwitch {
+      margin-left: 15px !important;
+    }
+
+    #athButtonSwitch, #unlistedButtonSwitch,
     #coins_table_wrapper .dt-buttons .dt-button {
       max-height: 25px;
       font-weight: bold;
@@ -164,7 +169,7 @@
       font-weight: bold;
     }
 
-    .pagination{
+    .pagination {
       margin-right: 100px;
     }
   </style>
@@ -176,6 +181,8 @@
   <div class="text-muted">
     <div class="CryptoDatatable">
       <div id="table_info"></div>
+      <button id="athButtonSwitch">Show Coins that did't reach again the ATH after 1y</button>
+      <button id="unlistedButtonSwitch">Show only coins not listed on Binance/Coinbase</button>
       <table id="coins_table" class="display" style="width:100%">
         <thead>
           <tr>
@@ -195,7 +202,8 @@
       </table>
     </div>
     <p>
-      Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a> 
+      Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a
+        target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a>
     </p>
     <p>
     </p>
@@ -208,24 +216,26 @@
     jQuery.fn.dataTableExt.oSort['string-case-desc'] = function (x, y) {
       return ((x < y) ? 1 : ((x > y) ? -1 : 0));
     };
+
+    var table
     function renderTable() {
-      var table = $('#coins_table').DataTable({
+      table = $('#coins_table').DataTable({
         dom: 'Bfrtip',
         stripeClasses: [],
         language: { search: '', searchPlaceholder: "Search..." },
         buttons: [
-        {
-          extend: 'pdf',
-          exportOptions: {
-          columns: [ 1, 2, 3, 4, 5, 6 ]
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: [1, 2, 3, 4, 5, 6]
+            },
           },
-        },
-        {
-          extend: 'excel',
-          exportOptions: {
-          columns: [ 1, 2, 3, 4, 5, 6 ]
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: [1, 2, 3, 4, 5, 6]
+            },
           },
-        },
           'pageLength'
         ],
         info: true,
@@ -233,7 +243,7 @@
         lengthChange: true,
         pagingType: "full_numbers",
         lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
-        order: [[1, "desc"]],
+        order: [[1, "asc"]],
         ajax: {
           url: '/unlisted-coins',
           dataSrc: function (json) {
@@ -311,8 +321,42 @@
       renderTable()
     })
 
+    $("#athButtonSwitch").click(function () {
+      $.ajax({
+        type: "GET",
+        url: "/ath",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+          table.clear().draw();
+          table.rows.add(data); // Add new data
+          table.columns.adjust().draw(); // Redraw the DataTable
 
+        },
+        failure: function (err) {
+          console.error(err);
+        }
+      });
+    });
+    $("#unlistedButtonSwitch").click(function () {
+      $.ajax({
+        type: "GET",
+        url: "/unlisted-coins",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+          table.clear().draw();
+          table.rows.add(data); // Add new data
+          table.columns.adjust().draw(); // Redraw the DataTable
 
+        },
+        failure: function (err) {
+          console.error(err);
+        }
+      });
+    });
+
+    
 
 
   </script>
@@ -326,15 +370,19 @@
     gtag('config', 'G-GSC4VT58PX');
   </script>
 
-<script>
-  !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-  arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-  d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-  insertBefore(d,q)}(window,document,'script','_gs');
+  <script>
+    !function (g, s, q, r, d) {
+      r = g[r] = g[r] || function () {
+        (r.q = r.q || []).push(
+          arguments)
+      }; d = s.createElement(q); q = s.getElementsByTagName(q)[0];
+      d.src = '//d1l6p2sc9645hc.cloudfront.net/tracker.js'; q.parentNode.
+        insertBefore(d, q)
+    }(window, document, 'script', '_gs');
 
-  _gs('GSN-034245-Q');
-  _gs('set', 'anonymizeIP', true);
-</script>
+    _gs('GSN-034245-Q');
+    _gs('set', 'anonymizeIP', true);
+  </script>
 </body>
 
 </html>

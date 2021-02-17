@@ -1,0 +1,14 @@
+diff --git a/node_modules/coingecko-api/lib/CoinGecko.js b/node_modules/coingecko-api/lib/CoinGecko.js
+index 9c5708f..3a82bb2 100644
+--- a/node_modules/coingecko-api/lib/CoinGecko.js
++++ b/node_modules/coingecko-api/lib/CoinGecko.js
+@@ -109,6 +109,9 @@ class CoinGecko {
+         if (Utils.isArray(params['ids'])) {
+           params.ids = params.ids.join(',');
+         }
++        // if (Utils.isString(params['price_change_percentage']) || Utils.isStringEmpty(params['price_change_percentage'])) {
++        // }
++        params.price_change_percentage = '1h,24h,7d,14d,30d';
+ 
+         return this._request(path, params);
+       },
