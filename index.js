@@ -26,6 +26,7 @@ const toExclude = [
   "bnb",
   "busd",
   "cusdc",
+  "ausdc",
   "bsv",
   "ust",
   "bat", // manually removed
