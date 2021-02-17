@@ -28,49 +28,51 @@ const coinsToExclude = [
 async function notToToAthYet() {
   console.log("Refreshing data notToToAthYet");
   const coins = await coinsNotToAthYet();
-  const result = coins.map((c) => {
-    const toATH = c.ath - c.current_price;
-    const toATHPercentage = toATH / (c.ath / 100);
-    let action = "-";
-    if (toATH > 0) {
-      action = "-";
-    }
-    const isCoinOnBinance = isCoinOnExchange("binance", c);
-    const isCoinOnCoinbase = isCoinOnExchange("gdax", c);
-    // console.log(
-    //   `coin ${c.id} is on binance? ${isCoinOnBinance}. isOnCoinbase? ${isCoinOnCoinbase}`
-    // );
-    const exchange =
-      isCoinOnBinance && isCoinOnCoinbase
-        ? ""
-        : isCoinOnBinance && !isCoinOnCoinbase
-        ? "Coinbase"
-        : !isCoinOnBinance && isCoinOnCoinbase
-        ? "Binance"
-        : "Binance, Coinbase";
-    return {
-      id: c.id,
-      image: c.image,
-      symbol: c.symbol,
-      name: c.name,
-      current_price: c.current_price,
-      market_cap_rank: c.market_cap_rank,
-      ath: c.ath,
-      price_change_percentage_24h:
-        Math.round((c.price_change_percentage_24h + Number.EPSILON) * 100) /
-        100,
-      price_change_percentage_7d_in_currency:
-        Math.round(
-          (c.price_change_percentage_7d_in_currency + Number.EPSILON) * 100
-        ) / 100,
-      exchange: c.exchange,
-      toATHPercentage:
-        Math.round((toATHPercentage + Number.EPSILON) * 100) / 100,
-      toATH,
-      action,
-      exchange,
-    };
-  });
+  const result = coins
+    .filter((c) => !coinsToExclude.includes(c.symbol))
+    .map((c) => {
+      const toATH = c.ath - c.current_price;
+      const toATHPercentage = toATH / (c.ath / 100);
+      let action = "-";
+      if (toATH > 0) {
+        action = "-";
+      }
+      const isCoinOnBinance = isCoinOnExchange("binance", c);
+      const isCoinOnCoinbase = isCoinOnExchange("gdax", c);
+      // console.log(
+      //   `coin ${c.id} is on binance? ${isCoinOnBinance}. isOnCoinbase? ${isCoinOnCoinbase}`
+      // );
+      const exchange =
+        isCoinOnBinance && isCoinOnCoinbase
+          ? ""
+          : isCoinOnBinance && !isCoinOnCoinbase
+          ? "Coinbase"
+          : !isCoinOnBinance && isCoinOnCoinbase
+          ? "Binance"
+          : "Binance, Coinbase";
+      return {
+        id: c.id,
+        image: c.image,
+        symbol: c.symbol,
+        name: c.name,
+        current_price: c.current_price,
+        market_cap_rank: c.market_cap_rank,
+        ath: c.ath,
+        price_change_percentage_24h:
+          Math.round((c.price_change_percentage_24h + Number.EPSILON) * 100) /
+          100,
+        price_change_percentage_7d_in_currency:
+          Math.round(
+            (c.price_change_percentage_7d_in_currency + Number.EPSILON) * 100
+          ) / 100,
+        exchange: c.exchange,
+        toATHPercentage:
+          Math.round((toATHPercentage + Number.EPSILON) * 100) / 100,
+        toATH,
+        action,
+        exchange,
+      };
+    });
   fs.writeFileSync(athFilePath, JSON.stringify(result));
   console.log("Refreshed data notToToAthYet", result.length);
 }
