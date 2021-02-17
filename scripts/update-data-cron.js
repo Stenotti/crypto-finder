@@ -42,12 +42,12 @@ async function notToToAthYet() {
     // );
     const exchange =
       isCoinOnBinance && isCoinOnCoinbase
-        ? "Binance, Coinbase"
-        : isCoinOnBinance
-        ? "Binance"
-        : isCoinOnCoinbase
+        ? ""
+        : isCoinOnBinance && !isCoinOnCoinbase
         ? "Coinbase"
-        : "";
+        : !isCoinOnBinance && isCoinOnCoinbase
+        ? "Binance"
+        : "Binance, Coinbase";
     return {
       id: c.id,
       image: c.image,
