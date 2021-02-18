@@ -2,6 +2,7 @@ const CoinGecko = require("coingecko-api");
 const rp = require("request-promise");
 const fs = require("fs");
 const CoinGeckoClient = new CoinGecko();
+const allCoinsFilePath = `${appRoot}/data/all-coins.json`;
 
 function delay(t, val) {
   return new Promise(function (resolve) {
@@ -65,7 +66,8 @@ exports.saveAllCoinsMarketData = async () => {
     price_change_percentage: "1h,24h,7d,14d,30d",
     per_page: 250,
   });
-  const allCoinsFilePath = `${appRoot}/data/all-coins.json`;
+  const allCoinsFileData = require(allCoinsFilePath);
+
   fs.writeFileSync(allCoinsFilePath, JSON.stringify(coins));
 };
 
@@ -82,7 +84,7 @@ exports.saveExchangeData = async (exchange) => {
 
 exports.coinsNotToAthYet = async () => {
   const ath_days_diff = 365;
-  const allCoinsFileData = require(allCoinsFilePath);
+
   return allCoinsFileData
     .filter(onlyUnique)
     .filter(
@@ -120,7 +122,6 @@ const isCoinOnExchange = (exports.isCoinOnExchange = (exchange, coin) => {
 });
 
 exports.coinsNotListedYetOn = async (exchange = "binance") => {
-  const allCoinsFileData = require(allCoinsFilePath);
   const coins = allCoinsFileData
     .filter(onlyUnique)
     .filter(
