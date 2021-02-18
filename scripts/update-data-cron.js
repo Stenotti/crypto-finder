@@ -7,8 +7,6 @@ const {
   isCoinOnExchange,
 } = require("./coingecko-api");
 
-const unlistedFilePath = `${appRoot}/data/unlisted.json`;
-const athFilePath = `${appRoot}/data/ath.json`;
 
 const coinsToExclude = [
   "usdt",
@@ -73,6 +71,7 @@ async function notToToAthYet() {
         exchange,
       };
     });
+  const athFilePath = `${appRoot}/data/ath.json`;
   fs.writeFileSync(athFilePath, JSON.stringify(result));
   console.log("Refreshed data notToToAthYet", result.length);
 }
@@ -128,6 +127,7 @@ async function unlistedCoins() {
         action,
       };
     });
+  const unlistedFilePath = `${appRoot}/data/unlisted.json`;
   fs.writeFileSync(unlistedFilePath, JSON.stringify(result));
   console.log("Refreshed data unlistedCoins", result.length);
 }
