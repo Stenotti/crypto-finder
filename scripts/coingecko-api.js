@@ -122,6 +122,7 @@ const isCoinOnExchange = (exports.isCoinOnExchange = (exchange, coin) => {
 });
 
 exports.coinsNotListedYetOn = async (exchange = "binance") => {
+  const allCoinsFileData = require(allCoinsFilePath);
   const coins = allCoinsFileData
     .filter(onlyUnique)
     .filter(
