@@ -172,6 +172,9 @@
     .pagination {
       margin-right: 100px;
     }
+    .rank-filter{
+      max-width: 100px;
+    }
   </style>
 </head>
 
@@ -183,6 +186,12 @@
       <div id="table_info"></div>
       <button id="athButtonSwitch">Show Coins that did't reach again the ATH after 1y</button>
       <button id="unlistedButtonSwitch">Show only coins not listed on Binance/Coinbase</button>
+      </br>
+      <div style="display: flex; margin-left: 15px; margin: 15px 0 15px 15px">
+        <input class="rank-filter form-control form-control-sm"placeholder="Min rank" type="text" id="min-rank" name="min-rank">
+        <input class="rank-filter form-control form-control-sm" placeholder="Max rank" type="text" id="max-rank" name="max-rank">
+      </div>
+
       <table id="coins_table" class="display" style="width:100%">
         <thead>
           <tr>
@@ -319,6 +328,21 @@
 
     $(document).ready(function () {
       renderTable()
+    //   $('#coins_table thead tr').clone(true).appendTo( '#coins_table thead' );
+    //   $('#coins_table thead tr:eq(1) th').each( function (i) {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+    //     $( 'input', this ).on( 'keyup change', function () {
+    //         if ( table.column(i).search() !== this.value ) {
+    //             table
+    //                 .column(i)
+    //                 .search( this.value )
+    //                 .draw();
+    //         }
+    //     } );
+    // } );
+
     })
 
     $("#athButtonSwitch").click(function () {
@@ -355,6 +379,28 @@
         }
       });
     });
+
+    jQuery.fn.dataTable.ext.search.push(
+      function( settings, data, dataIndex ) {
+          let minRank = parseInt( $('#min-rank').val(), 10 );
+          let maxRank = parseInt( $('#max-rank').val(), 10 );
+          let rank = parseFloat( data[1] ) || 0; // use data for the age column
+  
+          if ( ( isNaN( minRank ) && isNaN( maxRank ) ) ||
+             ( isNaN( minRank ) && rank <= maxRank ) ||
+             ( minRank <= rank  && isNaN( maxRank ) ) ||
+             ( minRank <= rank  && rank <= maxRank ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );
+
+  $('#min-rank, #max-rank').keyup( function() {
+        table.draw();
+    } );
+    
 
     
 
