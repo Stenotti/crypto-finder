@@ -84,7 +84,7 @@ exports.saveExchangeData = async (exchange) => {
 
 exports.coinsNotToAthYet = async () => {
   const ath_days_diff = 365;
-
+  const allCoinsFileData = require(allCoinsFilePath);
   return allCoinsFileData
     .filter(onlyUnique)
     .filter(

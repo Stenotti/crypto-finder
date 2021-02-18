@@ -71,6 +71,7 @@ async function notToToAthYet() {
         toATH,
         action,
         exchange,
+        date: Date()
       };
     });
   fs.writeFileSync(athFilePath, JSON.stringify(result));
@@ -144,5 +145,5 @@ function updateDataEveryNSeconds() {
 // saveExchangeData("gdax");
 // unlistedCoins();
 // notToToAthYet();
-
+notToToAthYet()
 updateDataEveryNSeconds();
