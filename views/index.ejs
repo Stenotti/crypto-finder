@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Unlisted Crypto Finder</title>
-  <link rel="shortcut icon" href="https://www.cryptofinder.xyz/images/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
   <!-- CSS (load bootstrap from a CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -43,12 +43,17 @@
       padding: 10px;
     }
 
+    #table_info p {
+      font-size: 14px;
+      color: #000;
+    }
+
     .coin-image {
       margin-right: 15px;
     }
 
     .dataTables_filter {
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
 
     .dataTables_filter input {
@@ -56,11 +61,66 @@
       font-size: 10px;
     }
 
-    #athButtonSwitch {
+    .filters {
       margin-left: 15px !important;
     }
 
-    #athButtonSwitch, #unlistedButtonSwitch,
+    .filter {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .label {
+      min-width: 95px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .min-max-rank {
+      display: flex;
+    }
+
+    .min-max-rank input {
+      color: #038fde;
+      background: #fff;
+      border-radius: 0;
+      border-color: #038fde;
+      height: 25px;
+    }
+
+    .min-max-rank input:first-child {
+      border-radius: 6px 0 0 6px;
+      border-right: 0;
+    }
+
+    .min-max-rank input:last-child {
+      border-radius: 0px 6px 6px 0;
+    }
+
+
+    #usdSwitch,
+    #btcSwitch,
+    #ethSwitch,
+    .buttons-page-length,
+    #athButtonSwitch {
+      margin-right: 5px !important;
+    }
+
+    #usdSwitch,
+    #btcSwitch,
+    #ethSwitch,
+    .buttons-page-length,
+    #athButtonSwitch,
+    #unlistedButtonSwitch {
+      border-radius: 6px !important;
+    }
+
+    #usdSwitch,
+    #btcSwitch,
+    #ethSwitch,
+    #athButtonSwitch,
+    #unlistedButtonSwitch,
     #coins_table_wrapper .dt-buttons .dt-button {
       max-height: 25px;
       font-weight: bold;
@@ -88,9 +148,17 @@
       font-size: 12px;
     }
 
+    #coins_table_filter input {
+      color: #038fde;
+      background: #fff;
+      border-radius: 6px;
+      border-color: #038fde;
+      min-height: 25px;
+      font-size: 11px;
+    }
+
     #coins_table_wrapper .dt-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
     }
 
     #coins_table_wrapper .dt-buttons .dt-button.buttons-pdf {
@@ -172,24 +240,46 @@
     .pagination {
       margin-right: 100px;
     }
-    .rank-filter{
+
+    .rank-filter {
       max-width: 100px;
     }
   </style>
 </head>
 
 <body class="">
-
-
   <div class="text-muted">
     <div class="CryptoDatatable">
-      <div id="table_info"></div>
-      <button id="athButtonSwitch">Show Coins that did't reach again the ATH after 1y</button>
-      <button id="unlistedButtonSwitch">Show only coins not listed on Binance/Coinbase</button>
-      </br>
-      <div style="display: flex; margin-left: 15px; margin: 15px 0 15px 15px">
-        <input class="rank-filter form-control form-control-sm"placeholder="Min rank" type="text" id="min-rank" name="min-rank">
-        <input class="rank-filter form-control form-control-sm" placeholder="Max rank" type="text" id="max-rank" name="max-rank">
+      <!-- <div id="table_info">
+        <h2>What is Crypto Finder?</h2>
+        <p>Crypto finder is useful for finding crypto-gems 💎 that didn't explode yet.</p>
+        <p>You can filter the coins that reached the All Time High (ATH) more than 1 year ago, and given the explosion
+          of the crypto-market, they may be likely to reach it again in the near future 🤑🤑🤑.</p>
+        <p>Another cool filter is based on the Exchanges listing. The coins that are not yet listed on the main
+          exchanges may be likely to get a pump when they get listed!</p>
+        <p>Do you find it useful? Would you like more filters? Tell us in chat!</p>
+      </div> -->
+      <div class="filters">
+        <div class="filter">
+          <span class="label">Currency: </span>
+          <button id="usdSwitch">USD</button>
+          <button id="btcSwitch">BTC</button>
+          <button id="ethSwitch">ETH</button>
+        </div>
+        <div class="filter">
+          <span class="label">Pre-made filters: </span>
+          <button id="athButtonSwitch">Show Coins that did't reach again the ATH after 1y</button>
+          <button id="unlistedButtonSwitch">Show only coins not listed on Binance/Coinbase</button>
+        </div>
+        <div class="filter">
+          <span class="label">Filter by Rank:</span>
+          <div class="min-max-rank">
+            <input class="rank-filter form-control form-control-sm" placeholder="Min rank" type="text" id="min-rank"
+              name="min-rank" value="1">
+            <input class="rank-filter form-control form-control-sm" placeholder="Max rank" type="text" id="max-rank"
+              name="max-rank" value="250">
+          </div>
+        </div>
       </div>
 
       <table id="coins_table" class="display" style="width:100%">
@@ -204,6 +294,8 @@
             <th>To ATH %</th>
             <th>24h %</th>
             <th>7d %</th>
+            <th>14d %</th>
+            <th>30d %</th>
             <th>Not listed in</th>
             <th>Where to buy?</th>
           </tr>
@@ -213,8 +305,6 @@
     <p>
       Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a
         target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a>
-    </p>
-    <p>
     </p>
   </div>
   <script>
@@ -227,12 +317,14 @@
     };
 
     var table
-    function renderTable() {
+    function renderTable(currency = 'usd') {
       table = $('#coins_table').DataTable({
         dom: 'Bfrtip',
         stripeClasses: [],
         language: { search: '', searchPlaceholder: "Search..." },
         buttons: [
+
+          'pageLength',
           {
             extend: 'pdf',
             exportOptions: {
@@ -244,8 +336,7 @@
             exportOptions: {
               columns: [1, 2, 3, 4, 5, 6]
             },
-          },
-          'pageLength'
+          }
         ],
         info: true,
         paging: true,
@@ -263,12 +354,14 @@
           { data: 'image' },
           { data: 'market_cap_rank' },
           { data: 'name' },
-          { data: 'current_price' },
-          { data: 'ath' },
-          { data: 'toATH' },
+          { data: 'current_price_' + currency },
+          { data: 'ath_' + currency },
+          { data: 'toATH_' + currency },
           { data: 'toATHPercentage' },
           { data: 'price_change_percentage_24h' },
           { data: 'price_change_percentage_7d_in_currency' },
+          { data: 'price_change_percentage_14d_in_currency' },
+          { data: 'price_change_percentage_30d_in_currency' },
           { data: 'exchange' },
           { data: 'action' },
         ],
@@ -281,7 +374,7 @@
             }
           },
           {
-            targets: 2,
+            data: "name",
             render: function (text, type, full) {
               return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/>${text} (${full.symbol.toUpperCase()})</a>`;
             }
@@ -289,21 +382,29 @@
           {
             targets: [3, 4, 5],
             render: function (text, type, full) {
-              return text.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumSignificantDigits: 10
-              })
+              if (currency === 'usd') {
+                return text.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumSignificantDigits: 10
+                })
+              }
+              if (currency === 'btc') {
+                return '₿' + text.toFixed(10).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+              }
+              if (currency === 'eth') {
+                return 'Ξ' + text.toFixed(10).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+              }
             }
           },
           {
-            targets: [6],
+            data: "toATHPercentage",
             render: function (text, type, full) {
               return `${text}%`
             }
           },
           {
-            targets: [7, 8],
+            targets: [7, 8, 9, 10],
             createdCell: function (td, cellData, rowData, row, col) {
               if (cellData > 0) {
                 $(td).css('color', '#16c784')
@@ -317,9 +418,9 @@
             }
           },
           {
-            targets: 10,
+            targets: 12,
             render: function (text, type, full) {
-              return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/markets>${full.symbol.toUpperCase()} Markets</a>`;
+              return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}/markets">${full.symbol.toUpperCase()} Markets</a>`;
             }
           },
         ]
@@ -327,22 +428,7 @@
     }
 
     $(document).ready(function () {
-      renderTable()
-    //   $('#coins_table thead tr').clone(true).appendTo( '#coins_table thead' );
-    //   $('#coins_table thead tr:eq(1) th').each( function (i) {
-    //     var title = $(this).text();
-    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
- 
-    //     $( 'input', this ).on( 'keyup change', function () {
-    //         if ( table.column(i).search() !== this.value ) {
-    //             table
-    //                 .column(i)
-    //                 .search( this.value )
-    //                 .draw();
-    //         }
-    //     } );
-    // } );
-
+      renderTable('usd')
     })
 
     $("#athButtonSwitch").click(function () {
@@ -362,6 +448,21 @@
         }
       });
     });
+
+
+    $("#usdSwitch").click(function () {
+      table.destroy()
+      renderTable('usd')
+    });
+    $("#btcSwitch").click(function () {
+      table.destroy()
+      renderTable('btc')
+    });
+    $("#ethSwitch").click(function () {
+      table.destroy()
+      renderTable('eth')
+    });
+
     $("#unlistedButtonSwitch").click(function () {
       $.ajax({
         type: "GET",
@@ -381,28 +482,27 @@
     });
 
     jQuery.fn.dataTable.ext.search.push(
-      function( settings, data, dataIndex ) {
-          let minRank = parseInt( $('#min-rank').val(), 10 );
-          let maxRank = parseInt( $('#max-rank').val(), 10 );
-          let rank = parseFloat( data[1] ) || 0; // use data for the age column
-  
-          if ( ( isNaN( minRank ) && isNaN( maxRank ) ) ||
-             ( isNaN( minRank ) && rank <= maxRank ) ||
-             ( minRank <= rank  && isNaN( maxRank ) ) ||
-             ( minRank <= rank  && rank <= maxRank ) )
-        {
-            return true;
+      function (settings, data, dataIndex) {
+        let minRank = parseInt($('#min-rank').val(), 10);
+        let maxRank = parseInt($('#max-rank').val(), 10);
+        let rank = parseFloat(data[1]) || 0; // use data for the age column
+
+        if ((isNaN(minRank) && isNaN(maxRank)) ||
+          (isNaN(minRank) && rank <= maxRank) ||
+          (minRank <= rank && isNaN(maxRank)) ||
+          (minRank <= rank && rank <= maxRank)) {
+          return true;
         }
         return false;
       }
     );
 
-  $('#min-rank, #max-rank').keyup( function() {
-        table.draw();
-    } );
-    
+    $('#min-rank, #max-rank').keyup(function () {
+      table.draw();
+    });
 
-    
+
+
 
 
   </script>

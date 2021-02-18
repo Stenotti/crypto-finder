@@ -141,3 +141,10 @@ exports.coinsNotListedYetOn = async (exchange = "binance") => {
     return acc;
   }, []);
 };
+
+exports.getBtcEthPrices = async () => {
+  return await CoinGeckoClient.simple.price({
+    ids: ["bitcoin", "ethereum"],
+    vs_currencies: ["eur", "usd"],
+  });
+};
