@@ -1,7 +1,5 @@
 const express = require("express");
 
-const athCoins = require("./data/ath.json");
-const unlistedCoins = require("./data/unlisted.json");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -25,11 +23,13 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/ath", async (req, res) => {
+  const athCoins = require("./data/ath.json");
   console.log("[/ath] returning cached data ", athCoins.length);
   res.json(athCoins);
 });
 
 app.get("/unlisted-coins", async (req, res) => {
+  const unlistedCoins = require("./data/unlisted.json");
   console.log("[/unlisted-coins] returning cached data ", unlistedCoins.length);
   res.json(unlistedCoins);
 });
