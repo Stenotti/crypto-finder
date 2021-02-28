@@ -22,10 +22,25 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/about", async (req, res) => {
+  try {
+    res.render("about");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get("/ath", async (req, res) => {
-  const athCoins = require("./data/ath.json");
-  console.log("[/ath] returning cached data ", athCoins.length);
-  res.json(athCoins);
+  let days = req.query.days;
+  console.log("🚀 ~ app.get ~ days", days);
+  if (days !== "182" && days !== "365") {
+    days = 365;
+  }
+  const athCoins = require(`./data/ath${days}.json`);
+  console.log(
+    `[/ath] returning cached data ./data/ath${days}.json: ${athCoins.length}`
+  );
+  return res.json(athCoins);
 });
 
 app.get("/unlisted-coins", async (req, res) => {

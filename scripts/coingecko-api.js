@@ -59,9 +59,9 @@ function onlyUnique(value, index, self) {
   return self.findIndex((v) => v.id === value.id) === index;
 }
 
-exports.saveAllCoinsMarketData = async () => {
+exports.saveAllCoinsMarketData = async (currency = "usd") => {
   const coins = await fetchAllData(CoinGeckoClient.coins.markets, {
-    vs_currency: "usd",
+    vs_currency: currency,
     order: "market_cap_desc",
     price_change_percentage: "1h,24h,7d,14d,30d",
     per_page: 250,
@@ -82,8 +82,7 @@ exports.saveExchangeData = async (exchange) => {
   fs.writeFileSync(exchangeFilePath, JSON.stringify(data));
 };
 
-exports.coinsNotToAthYet = async () => {
-  const ath_days_diff = 365;
+exports.coinsNotToAthYet = async (ath_days_diff = 365) => {
   const allCoinsFileData = require(allCoinsFilePath);
   return allCoinsFileData
     .filter(onlyUnique)

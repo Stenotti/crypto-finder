@@ -1,0 +1,137 @@
+<html lang="en">
+
+</html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Crypto Finder</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="http://localhost:8000/css/index.css" />
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.colVis.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+
+  <style>
+    body {
+      padding: 10px;
+    }
+
+    #table_info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      height: 85%;
+    }
+
+    #table_info p {
+      font-size: 14px;
+      color: #000;
+    }
+
+    .coin-image {
+      margin-right: 15px;
+    }
+
+    .dataTables_filter {
+      margin-bottom: 5px;
+    }
+
+    .dataTables_filter input {
+      max-height: 20px;
+      font-size: 10px;
+    }
+
+    .filters {
+      margin-left: 15px !important;
+    }
+
+    .filter {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+
+<body class="">
+  <h1>Crypto Finder</h1>
+  <br>
+  <div id="table_info">
+    <h5>What is Crypto Finder?</h5>
+    <p>Crypto finder is useful for finding crypto-gems 💎 that didn't explode yet.</p>
+    <p>You can filter the coins that reached the All Time High (ATH) soime time ago (more than 1 year or 6 months ago),
+      and given the explosion
+      of the crypto-market, they may be likely to reach it again in the near future 🤑🤑🤑.</p>
+    <p>Another cool filter is based on the Exchanges listing. The coins that are not yet listed on the main
+      exchanges may be likely to get a pump when they get listed!</p>
+
+    <h5>Do you find it useful? Would you like more filters?</h5>
+    <p> Tell us in chat!</p>
+
+    <h5>Do you want to donate?</h5>
+    <p>BTC Wallet Address: 3G24wUMJMpidZevnPeVWLNJ7sbbKcgykEJ</p>
+    <p>ETH Wallet Address: 0xc2177fcb9f0c7582f12c138e513a2b220cd493d8</p>
+  </div>
+  <a href="/">Go back to Crypto List</a>
+  <br>
+  <br>
+  <p>
+    Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a
+      target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a>
+  </p>
+  </div>
+
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSC4VT58PX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GSC4VT58PX');
+  </script>
+
+  <script>
+    !function (g, s, q, r, d) {
+      r = g[r] = g[r] || function () {
+        (r.q = r.q || []).push(
+          arguments)
+      }; d = s.createElement(q); q = s.getElementsByTagName(q)[0];
+      d.src = '//d1l6p2sc9645hc.cloudfront.net/tracker.js'; q.parentNode.
+        insertBefore(d, q)
+    }(window, document, 'script', '_gs');
+
+    _gs('GSN-034245-Q');
+    _gs('set', 'anonymizeIP', true);
+  </script>
+</body>
+
+</html>

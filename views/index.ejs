@@ -43,6 +43,10 @@
       padding: 10px;
     }
 
+    .footer {
+      padding: 0 15px;
+    }
+
     #table_info p {
       font-size: 14px;
       color: #000;
@@ -103,7 +107,8 @@
     #btcSwitch,
     #ethSwitch,
     .buttons-page-length,
-    #athButtonSwitch {
+    #athButtonSwitch6m,
+    #athButtonSwitch1y {
       margin-right: 5px !important;
     }
 
@@ -111,7 +116,8 @@
     #btcSwitch,
     #ethSwitch,
     .buttons-page-length,
-    #athButtonSwitch,
+    #athButtonSwitch6m,
+    #athButtonSwitch1y,
     #unlistedButtonSwitch {
       border-radius: 6px !important;
     }
@@ -119,7 +125,8 @@
     #usdSwitch,
     #btcSwitch,
     #ethSwitch,
-    #athButtonSwitch,
+    #athButtonSwitch1y,
+    #athButtonSwitch6m,
     #unlistedButtonSwitch,
     #coins_table_wrapper .dt-buttons .dt-button {
       max-height: 25px;
@@ -225,7 +232,6 @@
 
     table.dataTable tbody td {
       padding: 16px;
-
     }
 
     table.dataTable.display tbody tr>.sorting_1,
@@ -237,10 +243,6 @@
       font-weight: bold;
     }
 
-    .pagination {
-      margin-right: 100px;
-    }
-
     .rank-filter {
       max-width: 100px;
     }
@@ -250,15 +252,6 @@
 <body class="">
   <div class="text-muted">
     <div class="CryptoDatatable">
-      <!-- <div id="table_info">
-        <h2>What is Crypto Finder?</h2>
-        <p>Crypto finder is useful for finding crypto-gems 💎 that didn't explode yet.</p>
-        <p>You can filter the coins that reached the All Time High (ATH) more than 1 year ago, and given the explosion
-          of the crypto-market, they may be likely to reach it again in the near future 🤑🤑🤑.</p>
-        <p>Another cool filter is based on the Exchanges listing. The coins that are not yet listed on the main
-          exchanges may be likely to get a pump when they get listed!</p>
-        <p>Do you find it useful? Would you like more filters? Tell us in chat!</p>
-      </div> -->
       <div class="filters">
         <div class="filter">
           <span class="label">Currency: </span>
@@ -268,7 +261,8 @@
         </div>
         <div class="filter">
           <span class="label">Pre-made filters: </span>
-          <button id="athButtonSwitch">Show Coins that did't reach again the ATH after 1y</button>
+          <button id="athButtonSwitch1y">Show Coins that did't reach again the ATH after 1 year</button>
+          <button id="athButtonSwitch6m">Show Coins that did't reach again the ATH after 6 months</button>
           <button id="unlistedButtonSwitch">Show only coins not listed on Binance/Coinbase</button>
         </div>
         <div class="filter">
@@ -290,6 +284,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>ATH</th>
+            <th>ATH Date</th>
             <th>To ATH</th>
             <th>To ATH %</th>
             <th>24h %</th>
@@ -302,10 +297,13 @@
         </thead>
       </table>
     </div>
-    <p>
-      Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a
-        target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a>
-    </p>
+    <div class="footer">
+      <a href="/about">What is Crypto Finder?</a>
+      <p>
+        Made with &#x2764; by <a target="_blank" href="https://www.linkedin.com/in/giacomograzioli/">Jack</a> and <a
+          target="_blank" href="https://www.linkedin.com/in/stefano-tombolini-a221318b/">Ste</a>
+      </p>
+    </div>
   </div>
   <script>
     jQuery.fn.dataTableExt.oSort['string-case-asc'] = function (x, y) {
@@ -356,6 +354,7 @@
           { data: 'name' },
           { data: 'current_price_' + currency },
           { data: 'ath_' + currency },
+          { data: 'ath_date' },
           { data: 'toATH_' + currency },
           { data: 'toATHPercentage' },
           { data: 'price_change_percentage_24h' },
@@ -374,13 +373,21 @@
             }
           },
           {
+            targets: 2,
             data: "name",
             render: function (text, type, full) {
               return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}"/>${text} (${full.symbol.toUpperCase()})</a>`;
             }
           },
           {
-            targets: [3, 4, 5],
+            targets: 5,
+            data: "ath_date",
+            render: function (date, type, full) {
+              return new Date(date).toLocaleString();
+            }
+          },
+          {
+            targets: [3, 4, 6],
             render: function (text, type, full) {
               if (currency === 'usd') {
                 return text.toLocaleString('en-US', {
@@ -404,7 +411,7 @@
             }
           },
           {
-            targets: [7, 8, 9, 10],
+            targets: [8, 9, 10, 11],
             createdCell: function (td, cellData, rowData, row, col) {
               if (cellData > 0) {
                 $(td).css('color', '#16c784')
@@ -418,7 +425,7 @@
             }
           },
           {
-            targets: 12,
+            targets: 13,
             render: function (text, type, full) {
               return `<a target="_blank" href="https://coinmarketcap.com/currencies/${full.id}/markets">${full.symbol.toUpperCase()} Markets</a>`;
             }
@@ -431,10 +438,27 @@
       renderTable('usd')
     })
 
-    $("#athButtonSwitch").click(function () {
+    $("#athButtonSwitch1y").click(function () {
       $.ajax({
         type: "GET",
-        url: "/ath",
+        url: "/ath?days=365",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+          table.clear().draw();
+          table.rows.add(data); // Add new data
+          table.columns.adjust().draw(); // Redraw the DataTable
+
+        },
+        failure: function (err) {
+          console.error(err);
+        }
+      });
+    });
+    $("#athButtonSwitch6m").click(function () {
+      $.ajax({
+        type: "GET",
+        url: "/ath?days=182",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -500,9 +524,6 @@
     $('#min-rank, #max-rank').keyup(function () {
       table.draw();
     });
-
-
-
 
 
   </script>

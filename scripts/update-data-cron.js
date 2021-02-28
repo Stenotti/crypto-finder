@@ -9,7 +9,6 @@ const {
 } = require("./coingecko-api");
 
 const unlistedFilePath = `${appRoot}/data/unlisted.json`;
-const athFilePath = `${appRoot}/data/ath.json`;
 
 const coinsToExclude = [
   "usdt",
@@ -53,6 +52,7 @@ const formatCoinData = (c, btcEthPrices) => {
     current_price_btc: current_price_btc,
     current_price_eth: current_price_eth,
     market_cap_rank: c.market_cap_rank,
+    ath_date: c.ath_date,
     ath_usd: c.ath,
     ath_btc: ath_btc,
     ath_eth: ath_eth,
@@ -81,9 +81,9 @@ const formatCoinData = (c, btcEthPrices) => {
   };
 };
 
-async function notToToAthYet() {
+async function notToToAthYet(ath_days_diff = 365) {
   console.log("Refreshing data notToToAthYet");
-  const coins = await coinsNotToAthYet();
+  const coins = await coinsNotToAthYet(ath_days_diff);
   const btcEthPrices = await getBtcEthPrices();
   const result = coins
     .filter((c) => !coinsToExclude.includes(c.symbol))
@@ -104,6 +104,7 @@ async function notToToAthYet() {
       c.exchange = exchange;
       return formatCoinData(c, btcEthPrices.data);
     });
+  const athFilePath = `${appRoot}/data/ath${ath_days_diff}.json`;
   fs.writeFileSync(athFilePath, JSON.stringify(result));
   console.log("Refreshed data notToToAthYet", result.length);
 }
@@ -137,10 +138,13 @@ async function unlistedCoins() {
 
 function updateDataEveryNSeconds() {
   setInterval(unlistedCoins, 30 * 1000);
-  setInterval(saveAllCoinsMarketData, 120 * 1000);
+  setInterval(() => saveAllCoinsMarketData("usd"), 120 * 1000);
+  setInterval(() => saveAllCoinsMarketData("btc"), 120 * 1000);
+  setInterval(() => saveAllCoinsMarketData("eth"), 120 * 1000);
   setInterval(() => saveExchangeData("binance"), 125 * 1000);
   setInterval(() => saveExchangeData("gdax"), 125 * 1000);
-  setInterval(notToToAthYet, 125 * 1000);
+  setInterval(() => notToToAthYet(365), 125 * 1000);
+  setInterval(() => notToToAthYet(182), 125 * 1000);
 }
 // saveAllCoinsMarketData();
 // saveExchangeData("binance");
